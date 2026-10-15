@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="LectorBiblioteca.csproj">
+    <Deploy />
+  </Project>
+</Solution>

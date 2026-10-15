@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>24</SupportedOSPlatformVersion>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationId>com.systarc.lector</ApplicationId>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <!-- APK instalable directamente (por defecto, Release genera un .aab que no se instala a mano) -->
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <!-- Sin recorte agresivo: evita que se eliminen las funciones que llama la página -->
+    <TrimMode>partial</TrimMode>
+  </PropertyGroup>
+
+  <!-- Al compilar en Release se firma el APK y se copia a Documentos\APK´s Propias -->
+  <Target Name="ApkReleaseAlCompilar" AfterTargets="Build" Condition="'$(Configuration)'=='Release'" DependsOnTargets="SignAndroidPackage">
+    <ItemGroup>
+      <ApkFinal Include="$(OutDir)*-Signed.apk" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ApkFinal)" DestinationFolder="$(USERPROFILE)\Documents\APK´s Propias" />
+    <Message Importance="high" Text="APK listo: @(ApkFinal)" />
+  </Target>
+</Project>
